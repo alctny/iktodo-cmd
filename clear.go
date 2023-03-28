@@ -4,13 +4,14 @@ import "github.com/urfave/cli/v2"
 
 func NewClear() *cli.Command {
 	return &cli.Command{
-		Name:   "clear",
-		Action: clear,
+		Name:    "clear",
+		Aliases: []string{"c", "cls"},
+		Action:  clearAction,
 	}
 
 }
 
-func clear(ctx *cli.Context) error {
+func clearAction(ctx *cli.Context) error {
 	tasks, err := Tasks()
 	if err != nil {
 		return err
@@ -21,6 +22,6 @@ func clear(ctx *cli.Context) error {
 			undone = append(undone, t)
 		}
 	}
-	Flush(undone)
-	return nil
+	undone.Show()
+	return Flush(undone)
 }

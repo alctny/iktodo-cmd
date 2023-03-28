@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+
+	"github.com/fatih/color"
 )
 
 type Task struct {
@@ -28,8 +30,15 @@ func (t Task) String() string {
 type Todo []Task
 
 func (td Todo) Show() {
+	redPrinter := color.New(color.FgHiRed)
+	greenPrinter := color.New(color.FgHiGreen, color.CrossedOut)
+
 	for i, t := range td {
-		fmt.Printf("%02d %s\n", i, t)
+		if t.Done {
+			greenPrinter.Printf("%02d %s\n", i, t)
+		} else {
+			redPrinter.Printf("%02d %s\n", i, t)
+		}
 	}
 }
 

@@ -41,9 +41,19 @@ func main() {
 			NewModify(),
 			NewSort(),
 		},
+		Action: defAction,
 	}
 	err := app.Run(os.Args)
 	if err != nil {
 		fmt.Println(err)
 	}
+}
+
+func defAction(ctx *cli.Context) error {
+	tasks, err := Tasks()
+	if err != nil {
+		return err
+	}
+	tasks.Show()
+	return nil
 }

@@ -11,11 +11,11 @@ func NewModify() *cli.Command {
 	return &cli.Command{
 		Name:    "rename",
 		Aliases: []string{"mv"},
-		Action:  modify,
+		Action:  modifyAction,
 	}
 }
 
-func modify(ctx *cli.Context) error {
+func modifyAction(ctx *cli.Context) error {
 	id_i64, err := strconv.ParseInt(ctx.Args().First(), 10, 64)
 	if err != nil {
 		return err
@@ -30,5 +30,6 @@ func modify(ctx *cli.Context) error {
 	}
 	newName := strings.Join(ctx.Args().Slice()[1:], " ")
 	tasks[id].Name = newName
+	tasks.Show()
 	return Flush(tasks)
 }

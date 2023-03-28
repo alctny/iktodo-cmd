@@ -5,12 +5,12 @@ import "github.com/urfave/cli/v2"
 func NewSort() *cli.Command {
 	return &cli.Command{
 		Name:   "sort",
-		Action: sort,
+		Action: sortAction,
 	}
 
 }
 
-func sort(ctx *cli.Context) error {
+func sortAction(ctx *cli.Context) error {
 	tasks, err := Tasks()
 	if err != nil {
 		return err
@@ -26,5 +26,6 @@ func sort(ctx *cli.Context) error {
 		}
 	}
 	undone = append(undone, done...)
+	undone.Show()
 	return Flush(undone)
 }

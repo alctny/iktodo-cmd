@@ -9,13 +9,13 @@ import (
 func NewAdd() *cli.Command {
 	return &cli.Command{
 		Name:    "add",
-		Aliases: []string{"touch", "new"},
-		Action:  add,
+		Aliases: []string{"touch", "new", "a"},
+		Action:  addAction,
 	}
 
 }
 
-func add(ctx *cli.Context) error {
+func addAction(ctx *cli.Context) error {
 	tasks, err := Tasks()
 	if err != nil {
 		return err
@@ -25,5 +25,6 @@ func add(ctx *cli.Context) error {
 		Name: taskName,
 		Done: UNDONE_STATUS,
 	})
+	tasks.Show()
 	return Flush(tasks)
 }

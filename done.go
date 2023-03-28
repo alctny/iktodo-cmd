@@ -8,8 +8,9 @@ import (
 
 func NewDone() *cli.Command {
 	return &cli.Command{
-		Name:   "done",
-		Action: done,
+		Name:    "done",
+		Aliases: []string{"d", "finish"},
+		Action:  done,
 	}
 
 }

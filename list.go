@@ -6,11 +6,11 @@ func NewList() *cli.Command {
 	return &cli.Command{
 		Name:    "ls",
 		Aliases: []string{"list", "show"},
-		Action:  list,
+		Action:  listAction,
 	}
 }
 
-func list(ctx *cli.Context) error {
+func listAction(ctx *cli.Context) error {
 	tasks, err := Tasks()
 	if err != nil {
 		return err
