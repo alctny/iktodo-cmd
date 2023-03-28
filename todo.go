@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-
-	"github.com/fatih/color"
 )
 
 type Task struct {
@@ -17,28 +15,22 @@ var (
 	DONE_STATUS   = true
 	UNDONE_STATUS = false
 
-	prefix = map[bool]rune{
-		DONE_STATUS:   'V',
-		UNDONE_STATUS: 'X',
+	printLayout = map[bool]string{
+		DONE_STATUS:   doneLayout,
+		UNDONE_STATUS: undoneLayout,
 	}
 )
 
-func (t Task) String() string {
-	return fmt.Sprintf("[%c] %s", prefix[t.Done], t.Name)
-}
+const (
+	undoneLayout = "\033[1;95;1m%02d %s\033[0m\n" // fg black bg white
+	doneLayout   = "\033[1;92;9m%02d %s\033[0m\n" // fg white bg black
+)
 
 type Todo []Task
 
 func (td Todo) Show() {
-	redPrinter := color.New(color.FgHiRed)
-	greenPrinter := color.New(color.FgHiGreen, color.CrossedOut)
-
 	for i, t := range td {
-		if t.Done {
-			greenPrinter.Printf("%02d %s\n", i, t)
-		} else {
-			redPrinter.Printf("%02d %s\n", i, t)
-		}
+		fmt.Printf(printLayout[t.Done], i, t.Name)
 	}
 }
 
