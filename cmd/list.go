@@ -1,8 +1,10 @@
-package main
+package cmd
 
 import (
 	"strings"
 
+	"github.com/alctny/todo/dao"
+	"github.com/alctny/todo/task"
 	"github.com/urfave/cli/v2"
 )
 
@@ -24,21 +26,21 @@ func NewList() *cli.Command {
 }
 
 func listAction(ctx *cli.Context) error {
-	tasks, err := Tasks()
+	tasks, err := dao.TodoList()
 	if err != nil {
 		return err
 	}
 
 	if ctx.IsSet(listClassFlag) {
 		class := strings.TrimSpace(ctx.String(listClassFlag))
-		tasks = tasks.Filter(func(t Task) bool {
+		tasks = tasks.Filter(func(t task.Task) bool {
 			return t.Class == class
 		})
 	}
 
 	if ctx.IsSet(listTagFlag) {
 		tagArg := strings.TrimSpace(ctx.String(listTagFlag))
-		tasks = tasks.Filter(func(t Task) bool {
+		tasks = tasks.Filter(func(t task.Task) bool {
 			for _, tag := range t.Tag {
 				if tag == tagArg {
 					return true

@@ -1,8 +1,10 @@
-package main
+package cmd
 
 import (
 	"strings"
 
+	"github.com/alctny/todo/dao"
+	"github.com/alctny/todo/task"
 	"github.com/urfave/cli/v2"
 )
 
@@ -16,7 +18,7 @@ func NewAdd() *cli.Command {
 }
 
 func addAction(ctx *cli.Context) error {
-	tasks, err := Tasks()
+	tasks, err := dao.TodoList()
 	if err != nil {
 		return err
 	}
@@ -37,12 +39,12 @@ func addAction(ctx *cli.Context) error {
 		name = strings.Join(args[2:], " ")
 	}
 
-	tasks = append(tasks, Task{
+	tasks = append(tasks, task.Task{
 		Name:  name,
-		Done:  UNDONE_STATUS,
+		Done:  task.UNDONE_STATUS,
 		Class: class,
 		Tag:   tag,
 	})
 	tasks.Show()
-	return Flush(tasks)
+	return dao.FlushAll(tasks)
 }

@@ -1,6 +1,10 @@
-package main
+package cmd
 
-import "github.com/urfave/cli/v2"
+import (
+	"github.com/alctny/todo/dao"
+	"github.com/alctny/todo/task"
+	"github.com/urfave/cli/v2"
+)
 
 func NewClear() *cli.Command {
 	return &cli.Command{
@@ -12,16 +16,16 @@ func NewClear() *cli.Command {
 }
 
 func clearAction(ctx *cli.Context) error {
-	tasks, err := Tasks()
+	tasks, err := dao.TodoList()
 	if err != nil {
 		return err
 	}
-	undone := Todo{}
+	undone := task.Tasks{}
 	for _, t := range tasks {
 		if !t.Done {
 			undone = append(undone, t)
 		}
 	}
 	undone.Show()
-	return Flush(undone)
+	return dao.FlushAll(undone)
 }

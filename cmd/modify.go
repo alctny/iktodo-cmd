@@ -1,9 +1,10 @@
-package main
+package cmd
 
 import (
 	"strconv"
 	"strings"
 
+	"github.com/alctny/todo/dao"
 	"github.com/urfave/cli/v2"
 )
 
@@ -21,7 +22,7 @@ func modifyAction(ctx *cli.Context) error {
 		return err
 	}
 	id := int(id_i64)
-	tasks, err := Tasks()
+	tasks, err := dao.TodoList()
 	if err != nil {
 		return err
 	}
@@ -31,5 +32,5 @@ func modifyAction(ctx *cli.Context) error {
 	newName := strings.Join(ctx.Args().Slice()[1:], " ")
 	tasks[id].Name = newName
 	tasks.Show()
-	return Flush(tasks)
+	return dao.FlushAll(tasks)
 }

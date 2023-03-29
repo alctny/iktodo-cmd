@@ -1,8 +1,9 @@
-package main
+package cmd
 
 import (
 	"strconv"
 
+	"github.com/alctny/todo/dao"
 	"github.com/urfave/cli/v2"
 )
 
@@ -21,7 +22,7 @@ func done(ctx *cli.Context) error {
 		return err
 	}
 	id := int(id_i64)
-	tasks, err := Tasks()
+	tasks, err := dao.TodoList()
 	if err != nil {
 		return err
 	}
@@ -30,5 +31,5 @@ func done(ctx *cli.Context) error {
 	}
 	tasks[id].Done = !tasks[id].Done
 	tasks.Show()
-	return Flush(tasks)
+	return dao.FlushAll(tasks)
 }
