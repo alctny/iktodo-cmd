@@ -20,10 +20,28 @@ func addAction(ctx *cli.Context) error {
 	if err != nil {
 		return err
 	}
-	taskName := strings.Join(ctx.Args().Slice(), " ")
+
+	class := ""
+	tag := []string{}
+	name := ""
+	args := strings.Split(ctx.Args().First(), ":")
+	// class:tag1,tag2...:task
+	switch len(args) {
+	case 2:
+		class, name = args[0], args[1]
+	case 1:
+		name = args[0]
+	default:
+		class = args[0]
+		tag = strings.Split(args[1], ",")
+		name = strings.Join(args[2:], " ")
+	}
+
 	tasks = append(tasks, Task{
-		Name: taskName,
-		Done: UNDONE_STATUS,
+		Name:  name,
+		Done:  UNDONE_STATUS,
+		Class: class,
+		Tag:   tag,
 	})
 	tasks.Show()
 	return Flush(tasks)
