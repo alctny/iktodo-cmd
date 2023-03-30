@@ -6,7 +6,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func NewClear() *cli.Command {
+func newClear() *cli.Command {
 	return &cli.Command{
 		Name:    "clear",
 		Aliases: []string{"c", "cls"},

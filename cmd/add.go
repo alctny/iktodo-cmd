@@ -8,7 +8,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func NewAdd() *cli.Command {
+func newAdd() *cli.Command {
 	return &cli.Command{
 		Name:    "add",
 		Aliases: []string{"touch", "new", "a"},

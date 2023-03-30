@@ -13,7 +13,7 @@ const (
 	listTagFlag   = "tag"
 )
 
-func NewList() *cli.Command {
+func newList() *cli.Command {
 	return &cli.Command{
 		Name:    "list",
 		Aliases: []string{"ls", "show"},

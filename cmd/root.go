@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/alctny/todo/dao"
 	"github.com/urfave/cli/v2"
 )
 
@@ -12,16 +11,17 @@ func Execute() {
 	app := cli.App{
 		Name:    "todo",
 		Version: "1.0.0",
+		Action:  defAction,
 		Commands: []*cli.Command{
-			NewAdd(),
-			NewClear(),
-			NewDone(),
-			NewList(),
-			NewModify(),
-			NewSort(),
+			newAdd(),
+			newClear(),
+			newDone(),
+			newList(),
+			newModify(),
+			newSort(),
 		},
-		Action: defAction,
 	}
+
 	err := app.Run(os.Args)
 	if err != nil {
 		fmt.Println(err)
@@ -29,10 +29,8 @@ func Execute() {
 }
 
 func defAction(ctx *cli.Context) error {
-	tasks, err := dao.TodoList()
-	if err != nil {
-		return err
+	if ctx.NArg() < 1 {
+		return listAction(ctx)
 	}
-	tasks.Show()
-	return nil
+	return addAction(ctx)
 }

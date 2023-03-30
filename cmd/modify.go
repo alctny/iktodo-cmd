@@ -8,7 +8,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func NewModify() *cli.Command {
+func newModify() *cli.Command {
 	return &cli.Command{
 		Name:    "rename",
 		Aliases: []string{"mv"},

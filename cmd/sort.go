@@ -6,7 +6,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func NewSort() *cli.Command {
+func newSort() *cli.Command {
 	return &cli.Command{
 		Name:   "sort",
 		Action: sortAction,
