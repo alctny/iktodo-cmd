@@ -29,23 +29,30 @@ type Task struct {
 
 type Tasks []Task
 
-func (td Tasks) Show() {
-	for i, t := range td {
+// Show show all task
+func (ts Tasks) Show() {
+	for i, t := range ts {
 		// eg: 00 [bug] <go,rust,shell> 遊歷的目的是收集五聖器
 		fmt.Printf(printLayout[t.Done], i, t.Class, strings.Join(t.Tag, ","), t.Name)
 	}
 }
 
-func (td Tasks) Filter(fs ...func(Task) bool) Tasks {
+// Show show task which task satisfy fs
+func (ts Tasks) ShowSome(fs ...func(t Task) bool) {
+
+}
+
+// Filter
+func (ts Tasks) Filter(fs ...func(Task) bool) Tasks {
 	result := Tasks{}
-	for _, filter := range fs {
-		res := Tasks{}
-		for _, task := range td {
-			if filter(task) {
-				res = append(res, task)
+	for _, t := range ts {
+		for _, f := range fs {
+			if !f(t) {
+				goto next
 			}
 		}
-		result = append(result, res...)
+		result = append(result, t)
+	next:
 	}
 	return result
 }

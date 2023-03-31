@@ -9,8 +9,10 @@ import (
 )
 
 const (
-	listClassFlag = "class"
-	listTagFlag   = "tag"
+	listClassFlag  = "class"
+	listTagFlag    = "tag"
+	listDoneFlag   = "done"
+	listUndoneFlag = "undone"
 )
 
 func newList() *cli.Command {
@@ -20,6 +22,8 @@ func newList() *cli.Command {
 		Flags: []cli.Flag{
 			&cli.StringFlag{Name: listClassFlag},
 			&cli.StringFlag{Name: listTagFlag},
+			&cli.BoolFlag{Name: listDoneFlag},
+			&cli.BoolFlag{Name: listUndoneFlag},
 		},
 		Action: listAction,
 	}
@@ -31,24 +35,38 @@ func listAction(ctx *cli.Context) error {
 		return err
 	}
 
-	if ctx.IsSet(listClassFlag) {
-		class := strings.TrimSpace(ctx.String(listClassFlag))
-		tasks = tasks.Filter(func(t task.Task) bool {
-			return t.Class == class
-		})
-	}
+	classParameter := strings.TrimSpace(ctx.String(listClassFlag))
+	tagParameter := strings.TrimSpace(ctx.String(listTagFlag))
 
-	if ctx.IsSet(listTagFlag) {
-		tagArg := strings.TrimSpace(ctx.String(listTagFlag))
-		tasks = tasks.Filter(func(t task.Task) bool {
+	flagFilter := map[string]func(t task.Task) bool{
+		listClassFlag: func(t task.Task) bool {
+			return t.Class == classParameter
+		},
+
+		listTagFlag: func(t task.Task) bool {
 			for _, tag := range t.Tag {
-				if tag == tagArg {
+				if tag == tagParameter {
 					return true
 				}
 			}
 			return false
-		})
+		},
+
+		listDoneFlag: func(t task.Task) bool {
+			return t.Done == task.DONE_STATUS
+		},
+
+		listUndoneFlag: func(t task.Task) bool {
+			return t.Done == task.UNDONE_STATUS
+		},
 	}
+
+	flags := ctx.FlagNames()
+	filters := []func(t task.Task) bool{}
+	for _, v := range flags {
+		filters = append(filters, flagFilter[v])
+	}
+	tasks = tasks.Filter(filters...)
 
 	tasks.Show()
 	return nil
