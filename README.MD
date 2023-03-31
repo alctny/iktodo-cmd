@@ -2,7 +2,7 @@
 
 ## 這是什麼
 
-一個簡單的在命令行 ToDo List 管理工具（iktodo 完工之前的簡易替代品）
+Iwanna-Kotoko Todo List
 
 ## 安裝
 
@@ -100,4 +100,4 @@ todo mv 00 召唤师峡谷
 1. `todo` = `todo list`
 2. `todo game:lol:pvp` = `todo add game:lol:pvp`
 
-> P.S. 虽然 todo 等价 todo list，但是 todo --class 并不等价 todo list --class。todo 命令本身没有任何 Flag（无值参数） 或 Option（有值参数）
+> P.S. 虽然 todo 等价 todo list，但是 todo --class 并不等价 todo list --class。todo 根命令不接受任何 Flag 或 Option

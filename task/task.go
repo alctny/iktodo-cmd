@@ -22,6 +22,7 @@ var (
 
 type Task struct {
 	Done  bool     `json:"done"`
+	Lv    int      `json:"lv"`
 	Name  string   `json:"name"`
 	Class string   `json:"class"`
 	Tag   []string `json:"tag"`
@@ -37,6 +38,7 @@ func (ts Tasks) Show() {
 	}
 }
 
+<<<<<<< HEAD
 // List just print, no color, no strikethrough
 func (ts Tasks) List() {
 	for i, t := range ts {
@@ -49,6 +51,8 @@ func (ts Tasks) ShowSome(fs ...func(t Task) bool) {
 
 }
 
+=======
+>>>>>>> 81617c1 (- 准备添加任务重要级)
 // Filter
 func (ts Tasks) Filter(fs ...func(Task) bool) Tasks {
 	result := Tasks{}

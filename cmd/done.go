@@ -10,10 +10,10 @@ import (
 var doneCmd = &cli.Command{
 	Name:    "done",
 	Aliases: []string{"d", "finish"},
-	Action:  done,
+	Action:  doneAction,
 }
 
-func done(ctx *cli.Context) error {
+func doneAction(ctx *cli.Context) error {
 	ids := []int{}
 	for _, v := range ctx.Args().Slice() {
 		id_i64, err := strconv.ParseInt(v, 10, 64)
