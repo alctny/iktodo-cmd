@@ -16,19 +16,17 @@ const (
 	listNoColor    = "no-color"
 )
 
-func newList() *cli.Command {
-	return &cli.Command{
-		Name:    "list",
-		Aliases: []string{"ls", "show"},
-		Flags: []cli.Flag{
-			&cli.StringFlag{Name: listClassFlag},
-			&cli.StringFlag{Name: listTagFlag},
-			&cli.BoolFlag{Name: listDoneFlag},
-			&cli.BoolFlag{Name: listUndoneFlag},
-			&cli.BoolFlag{Name: listNoColor},
-		},
-		Action: listAction,
-	}
+var listCmd = &cli.Command{
+	Name:    "list",
+	Aliases: []string{"ls", "show"},
+	Flags: []cli.Flag{
+		&cli.StringFlag{Name: listClassFlag},
+		&cli.StringFlag{Name: listTagFlag},
+		&cli.BoolFlag{Name: listDoneFlag},
+		&cli.BoolFlag{Name: listUndoneFlag},
+		&cli.BoolFlag{Name: listNoColor},
+	},
+	Action: listAction,
 }
 
 func listAction(ctx *cli.Context) error {
@@ -44,7 +42,6 @@ func listAction(ctx *cli.Context) error {
 		listClassFlag: func(t task.Task) bool {
 			return t.Class == classParameter
 		},
-
 		listTagFlag: func(t task.Task) bool {
 			for _, tag := range t.Tag {
 				if tag == tagParameter {
@@ -53,11 +50,9 @@ func listAction(ctx *cli.Context) error {
 			}
 			return false
 		},
-
 		listDoneFlag: func(t task.Task) bool {
 			return t.Done == task.DONE_STATUS
 		},
-
 		listUndoneFlag: func(t task.Task) bool {
 			return t.Done == task.UNDONE_STATUS
 		},

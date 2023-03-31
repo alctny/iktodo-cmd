@@ -8,13 +8,10 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func newAdd() *cli.Command {
-	return &cli.Command{
-		Name:    "add",
-		Aliases: []string{"touch", "new", "a"},
-		Action:  addAction,
-	}
-
+var addCmd = &cli.Command{
+	Name:    "add",
+	Aliases: []string{"touch", "new", "a"},
+	Action:  addAction,
 }
 
 func addAction(ctx *cli.Context) error {

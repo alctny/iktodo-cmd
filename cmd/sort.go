@@ -6,12 +6,9 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func newSort() *cli.Command {
-	return &cli.Command{
-		Name:   "sort",
-		Action: sortAction,
-	}
-
+var sortCmd = &cli.Command{
+	Name:   "sort",
+	Action: sortAction,
 }
 
 func sortAction(ctx *cli.Context) error {

@@ -7,13 +7,10 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func newDone() *cli.Command {
-	return &cli.Command{
-		Name:    "done",
-		Aliases: []string{"d", "finish"},
-		Action:  done,
-	}
-
+var doneCmd = &cli.Command{
+	Name:    "done",
+	Aliases: []string{"d", "finish"},
+	Action:  done,
 }
 
 func done(ctx *cli.Context) error {

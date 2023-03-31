@@ -8,12 +8,10 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func newModify() *cli.Command {
-	return &cli.Command{
-		Name:    "rename",
-		Aliases: []string{"mv"},
-		Action:  modifyAction,
-	}
+var modifyCmd = &cli.Command{
+	Name:    "rename",
+	Aliases: []string{"mv"},
+	Action:  modifyAction,
 }
 
 func modifyAction(ctx *cli.Context) error {

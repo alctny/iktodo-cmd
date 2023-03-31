@@ -8,11 +8,9 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func newTop() *cli.Command {
-	return &cli.Command{
-		Action: topAction,
-		Name:   "top",
-	}
+var topCmd = &cli.Command{
+	Action: topAction,
+	Name:   "top",
 }
 
 func topAction(ctx *cli.Context) error {

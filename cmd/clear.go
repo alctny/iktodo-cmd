@@ -6,13 +6,10 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func newClear() *cli.Command {
-	return &cli.Command{
-		Name:    "clear",
-		Aliases: []string{"c", "cls"},
-		Action:  clearAction,
-	}
-
+var clearCmd = &cli.Command{
+	Name:    "clear",
+	Aliases: []string{"c", "cls"},
+	Action:  clearAction,
 }
 
 func clearAction(ctx *cli.Context) error {

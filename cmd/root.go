@@ -13,13 +13,13 @@ func Execute() {
 		Version: "1.0.0",
 		Action:  defAction,
 		Commands: []*cli.Command{
-			newAdd(),
-			newClear(),
-			newDone(),
-			newList(),
-			newModify(),
-			newSort(),
-			newTop(),
+			addCmd,
+			clearCmd,
+			doneCmd,
+			listCmd,
+			modifyCmd,
+			sortCmd,
+			topCmd,
 		},
 	}
 
