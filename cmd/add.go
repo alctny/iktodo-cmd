@@ -26,7 +26,7 @@ func addAction(ctx *cli.Context) error {
 	class := ""
 	tag := []string{}
 	name := ""
-	args := strings.Split(ctx.Args().First(), ":")
+	args := strings.Split(strings.Join(ctx.Args().Slice(), " "), ":")
 	// class:tag1,tag2...:task
 	switch len(args) {
 	case 2:
