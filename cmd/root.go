@@ -19,6 +19,7 @@ func Execute() {
 			newList(),
 			newModify(),
 			newSort(),
+			newTop(),
 		},
 	}
 

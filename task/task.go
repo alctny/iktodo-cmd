@@ -37,6 +37,13 @@ func (ts Tasks) Show() {
 	}
 }
 
+// List just print, no color, no strikethrough
+func (ts Tasks) List() {
+	for i, t := range ts {
+		fmt.Printf("%02d %s %s %s\n", i, t.Class, strings.Join(t.Tag, ","), t.Name)
+	}
+}
+
 // Show show task which task satisfy fs
 func (ts Tasks) ShowSome(fs ...func(t Task) bool) {
 
@@ -47,7 +54,7 @@ func (ts Tasks) Filter(fs ...func(Task) bool) Tasks {
 	result := Tasks{}
 	for _, t := range ts {
 		for _, f := range fs {
-			if !f(t) {
+			if f != nil && !f(t) {
 				goto next
 			}
 		}

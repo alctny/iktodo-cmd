@@ -29,7 +29,7 @@ func sortAction(ctx *cli.Context) error {
 			undone = append(undone, tsk)
 		}
 	}
-	undone = append(undone, done...)
+	undone = append(done, undone...)
 	undone.Show()
 	return dao.FlushAll(undone)
 }

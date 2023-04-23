@@ -13,6 +13,7 @@ const (
 	listTagFlag    = "tag"
 	listDoneFlag   = "done"
 	listUndoneFlag = "undone"
+	listNoColor    = "no-color"
 )
 
 func newList() *cli.Command {
@@ -24,6 +25,7 @@ func newList() *cli.Command {
 			&cli.StringFlag{Name: listTagFlag},
 			&cli.BoolFlag{Name: listDoneFlag},
 			&cli.BoolFlag{Name: listUndoneFlag},
+			&cli.BoolFlag{Name: listNoColor},
 		},
 		Action: listAction,
 	}
@@ -62,12 +64,18 @@ func listAction(ctx *cli.Context) error {
 	}
 
 	flags := ctx.FlagNames()
-	filters := []func(t task.Task) bool{}
+	var filters []func(t task.Task) bool
 	for _, v := range flags {
 		filters = append(filters, flagFilter[v])
 	}
 	tasks = tasks.Filter(filters...)
 
-	tasks.Show()
+	switch ctx.Bool(listNoColor) {
+	case true:
+		tasks.List()
+	case false:
+		tasks.Show()
+	}
+
 	return nil
 }
