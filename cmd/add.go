@@ -26,13 +26,8 @@ func addAction(ctx *cli.Context) error {
 	class := ""
 	tag := []string{}
 	name := ""
-<<<<<<< HEAD
 	args := strings.Split(strings.Join(ctx.Args().Slice(), " "), ":")
 	// class:tag1,tag2...:task
-=======
-	args := strings.Split(ctx.Args().First(), ":")
-	// class:tag1,tag2...:1:task
->>>>>>> 81617c1 (- 准备添加任务重要级)
 	switch len(args) {
 	case 2:
 		class, name = args[0], args[1]
